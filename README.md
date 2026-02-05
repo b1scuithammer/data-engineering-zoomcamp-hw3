@@ -28,7 +28,7 @@ select count(*) from `hw3.yellow_tripdata_20204`;<br />
 20332093
 # Q2
 select distinct PULocationID from `hw3.E_yellow_tripdata`;<br />
-0mb
+0mb<br />
 select distinct PULocationID from `hw3.yellow_tripdata_20204`;<br />
 155.12mb
 
