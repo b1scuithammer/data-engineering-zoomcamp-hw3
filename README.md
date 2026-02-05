@@ -16,48 +16,48 @@ Done via the gcp UI:  <br />
   union all  <br />
   select * from `hw3.yellow_tripdata_2024-06`  <br />
 );  
-4. create the external table
-create or replace external table `dtc-de-course-484919.hw3.E_yellow_tripdata`
-options(
-  format = 'PARQUET',
-  uris = ['gs://dtc-de-course-484919-hw3/*.parquet']
-);
+4. create the external table: <br />
+create or replace external table `dtc-de-course-484919.hw3.E_yellow_tripdata`<br />
+options(<br />
+  format = 'PARQUET',<br />
+  uris = ['gs://dtc-de-course-484919-hw3/*.parquet']<br />
+);<br />
 PS: I could have done this a lot easier by creating the external table first and then creating the consolidated table from the external table with SQL
 # Q1
-select count(*) from `hw3.yellow_tripdata_20204`;
+select count(*) from `hw3.yellow_tripdata_20204`;<br />
 20332093
 # Q2
-select distinct PULocationID from `hw3.E_yellow_tripdata`;
+select distinct PULocationID from `hw3.E_yellow_tripdata`;<br />
 0mb
-select distinct PULocationID from `hw3.yellow_tripdata_20204`;
+select distinct PULocationID from `hw3.yellow_tripdata_20204`;<br />
 155.12mb
 
 # Q3
-select PULocationID, DOLocationID from `hw3.yellow_tripdata_20204`;
+select PULocationID, DOLocationID from `hw3.yellow_tripdata_20204`;<br />
 310.24mb
 
 # Q4
-select count(*) from `hw3.yellow_tripdata_20204` 
-where fare_amount = 0;
+select count(*) from `hw3.yellow_tripdata_20204` <br />
+where fare_amount = 0;<br />
 8333
 
 # Q5
-CREATE TABLE `dtc-de-course-484919.hw3.yellow_tripdata_p`
-PARTITION BY DATE(tpep_dropoff_datetime)
-CLUSTER BY VendorID
-AS
-SELECT
-  *
+CREATE TABLE `dtc-de-course-484919.hw3.yellow_tripdata_p`<br />
+PARTITION BY DATE(tpep_dropoff_datetime)<br />
+CLUSTER BY VendorID<br />
+AS<br />
+SELECT<br />
+  *<br />
 FROM `dtc-de-course-484919.hw3.yellow_tripdata_20204`;
 
 # Q6
-select distinct VendorID from `hw3.yellow_tripdata_20204`
-where tpep_dropoff_datetime between '2024-03-01' and '2024-03-15';
-310.31mb
+select distinct VendorID from `hw3.yellow_tripdata_20204`<br />
+where tpep_dropoff_datetime between '2024-03-01' and '2024-03-15';<br />
+310.31mb<br />
 
-select distinct VendorID from `hw3.yellow_tripdata_p`
-where tpep_dropoff_datetime between '2024-03-01' and '2024-03-15';
-26.84mb
+select distinct VendorID from `hw3.yellow_tripdata_p`<br />
+where tpep_dropoff_datetime between '2024-03-01' and '2024-03-15';<br />
+26.84mb<br />
 
 
 
